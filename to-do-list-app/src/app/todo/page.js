@@ -1,7 +1,7 @@
 import { Button, Task, TaskCompleted } from "@/components";
 
 const Home = () => {
-  const data = [
+  const task = [
     {
       taskName: "Hool hiih",
       isCompleted: false,
@@ -52,7 +52,18 @@ const Home = () => {
           </div>
           {/* No tasks to display */}
           {/* <Task /> */}
-          <TaskCompleted />
+          <TaskCompleted
+            taskName={task[0].taskName}
+            isCompleted={task[0].isCompleted}
+          />
+
+          {/* Clear completed */}
+          <div className="flex pt-4 mb-10   justify-between items-center border-t-[1px] border-t-[#e5e7eb]">
+            <p className="text-[14px] text-gray-500 ">1 of 2 tasks completed</p>
+            <button className="border-0 text-[14px] cursor-pointer  text-[#ef4444] bg-transparent">
+              Clear completed
+            </button>
+          </div>
 
           {/* Footer */}
           <div className="text-[12px] text-[#6b7280] text-center leading-[14.5px]">
