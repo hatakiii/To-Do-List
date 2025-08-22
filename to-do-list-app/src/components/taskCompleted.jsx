@@ -3,7 +3,7 @@ export const TaskCompleted = (props) => {
     <div className="flex flex-col gap-2">
       <div
         data-state="Default"
-        className="w-full h-16 p-4 bg-gray-50 rounded-md flex justify-between items-center"
+        className="w-full h-16 p-4 bg-gray-50 rounded-md flex justify-between items-center mb-5"
       >
         {/* Left side (checkbox + text) */}
         <div className="flex items-center gap-2.5">

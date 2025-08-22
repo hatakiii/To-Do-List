@@ -1,10 +1,19 @@
-import { Button, Task, TaskCompleted } from "@/components";
+"use client";
+
+import { useState } from "react";
+
+import { Button, TaskCompleted, NoTask } from "@/components";
 
 const Home = () => {
+  const [count, setCount] = useState(0);
   const task = [
     {
       taskName: "Hool hiih",
       isCompleted: false,
+    },
+    {
+      taskName: "Shal ugaah",
+      isCompleted: true,
     },
   ];
   return (
@@ -51,10 +60,15 @@ const Home = () => {
             ></Button>
           </div>
           {/* No tasks to display */}
-          {/* <Task /> */}
+          <NoTask />
+
           <TaskCompleted
             taskName={task[0].taskName}
             isCompleted={task[0].isCompleted}
+          />
+          <TaskCompleted
+            taskName={task[1].taskName}
+            isCompleted={task[1].isCompleted}
           />
 
           {/* Clear completed */}
@@ -70,6 +84,8 @@ const Home = () => {
             <span>Powered by</span>
             <a className="text-[#3b73ed] ml-[4px]">Pinecone academy</a>
           </div>
+          {count}
+          <button onClick={() => setCount(count + 1)}>Add Count</button>
         </div>
       </div>
     </div>
