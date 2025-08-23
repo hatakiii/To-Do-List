@@ -5,17 +5,20 @@ import { useState } from "react";
 import { Button, TaskCompleted, NoTask } from "@/components";
 
 const Home = () => {
-  const [count, setCount] = useState(0);
-  const task = [
-    {
-      taskName: "Hool hiih",
-      isCompleted: false,
-    },
-    {
-      taskName: "Shal ugaah",
-      isCompleted: true,
-    },
-  ];
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleOnChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const handleOnClick = (event) => {
+    event.preventDefault(); // prevents page refresh
+    if (!inputValue.trim()) return; // avoid empty todos
+    setTodos([...todos, { title: inputValue, isDone: true }]);
+    setInputValue("");
+  };
+
   return (
     <div className="m-0 p-0 box-border font-[Inter, Inter Fallback] ">
       {/* Container */}
@@ -33,13 +36,16 @@ const Home = () => {
           {/* Form= Input and Button */}
           <form className="h-[40px] flex gap-[6px]">
             <input
+              value={inputValue}
               type="text"
+              onChange={handleOnChange}
               maxLength="100"
               placeholder="Add a new task..."
               className="grow shrink text-[14px] rounded-[6px] px-[16px] border-[1px] border-[#e4e4e7] text-[#71717A]"
             ></input>
             <button
               type="submit"
+              onClick={handleOnClick}
               className="w-[59px] border-0 cursor-pointer text-[14px] text-[#f9f9f9] rounded-[6px] px-[16px] bg-[#3c82f6]"
             >
               Add
@@ -61,15 +67,13 @@ const Home = () => {
           </div>
           {/* No tasks to display */}
           <NoTask />
-
-          <TaskCompleted
-            taskName={task[0].taskName}
-            isCompleted={task[0].isCompleted}
-          />
-          <TaskCompleted
-            taskName={task[1].taskName}
-            isCompleted={task[1].isCompleted}
-          />
+          {todos.map((todo, index) => (
+            <TaskCompleted
+              key={index}
+              taskName={todo.title}
+              isCompleted={todo.isDone}
+            ></TaskCompleted>
+          ))}
 
           {/* Clear completed */}
           <div className="flex pt-4 mb-10   justify-between items-center border-t-[1px] border-t-[#e5e7eb]">
@@ -84,8 +88,6 @@ const Home = () => {
             <span>Powered by</span>
             <a className="text-[#3b73ed] ml-[4px]">Pinecone academy</a>
           </div>
-          {count}
-          <button onClick={() => setCount(count + 1)}>Add Count</button>
         </div>
       </div>
     </div>
