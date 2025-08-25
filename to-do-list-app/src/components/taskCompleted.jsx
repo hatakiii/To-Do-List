@@ -8,6 +8,7 @@ export const TaskCompleted = (props) => {
         {/* Left side (checkbox + text) */}
         <div className="flex items-center gap-2.5">
           <input
+            // onClick={() => handleCheck()}
             className="w-5 h-5 relative bg-white rounded-sm outline-1 outline-neutral-500"
             type="checkbox"
           />
@@ -18,7 +19,10 @@ export const TaskCompleted = (props) => {
 
         {/* Right side (delete button only if completed) */}
         {props.isCompleted && (
-          <button className="px-3 py-1.5 bg-red-50 rounded-md text-red-500">
+          <button
+            onClick={() => props.handleDelete(props.index)}
+            className="px-3 py-1.5 bg-red-50 rounded-md text-red-500"
+          >
             Delete
           </button>
         )}

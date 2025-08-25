@@ -7,16 +7,25 @@ import { Button, TaskCompleted, NoTask } from "@/components";
 const Home = () => {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleOnChange = (event) => {
     setInputValue(event.target.value);
   };
 
   const handleOnClick = (event) => {
-    event.preventDefault(); // prevents page refresh
-    if (!inputValue.trim()) return; // avoid empty todos
+    event.preventDefault();
+    if (!inputValue.trim()) return;
     setTodos([...todos, { title: inputValue, isDone: true }]);
     setInputValue("");
+  };
+
+  const handleDelete = (index) => {
+    setTodos(todos.filter((_, i) => i !== index));
+  };
+  // TaskCompleted checklegdsen uguig gargaj ireh function if checked (line through)
+  const handleCheck = () => {
+    setIsChecked(!isChecked);
   };
 
   return (
@@ -70,8 +79,11 @@ const Home = () => {
           {todos.map((todo, index) => (
             <TaskCompleted
               key={index}
+              index={index}
               taskName={todo.title}
               isCompleted={todo.isDone}
+              handleDelete={handleDelete}
+              handleCheck={handleCheck}
             ></TaskCompleted>
           ))}
 
