@@ -75,7 +75,7 @@ const Home = () => {
             ></Button>
           </div>
           {/* No tasks to display */}
-          <NoTask />
+          {todos.length === 0 && <NoTask />}
           {todos.map((todo, index) => (
             <TaskCompleted
               key={index}
@@ -88,12 +88,16 @@ const Home = () => {
           ))}
 
           {/* Clear completed */}
-          <div className="flex pt-4 mb-10   justify-between items-center border-t-[1px] border-t-[#e5e7eb]">
-            <p className="text-[14px] text-gray-500 ">1 of 2 tasks completed</p>
-            <button className="border-0 text-[14px] cursor-pointer  text-[#ef4444] bg-transparent">
-              Clear completed
-            </button>
-          </div>
+          {todos.length !== 0 && (
+            <div className="flex pt-4 mb-10   justify-between items-center border-t-[1px] border-t-[#e5e7eb]">
+              <p className="text-[14px] text-gray-500 ">
+                # of {todos.length} tasks completed
+              </p>
+              <button className="border-0 text-[14px] cursor-pointer  text-[#ef4444] bg-transparent">
+                Clear completed
+              </button>
+            </div>
+          )}
 
           {/* Footer */}
           <div className="text-[12px] text-[#6b7280] text-center leading-[14.5px]">
