@@ -7,7 +7,6 @@ import { Button, TaskCompleted, NoTask } from "@/components";
 const Home = () => {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
 
   const handleOnChange = (event) => {
     setInputValue(event.target.value);
@@ -16,7 +15,7 @@ const Home = () => {
   const handleOnClick = (event) => {
     event.preventDefault();
     if (!inputValue.trim()) return;
-    setTodos([...todos, { title: inputValue, isDone: true }]);
+    setTodos([...todos, { title: inputValue, isCompleted: false }]);
     setInputValue("");
   };
 
@@ -24,10 +23,24 @@ const Home = () => {
     setTodos(todos.filter((_, i) => i !== index));
   };
   // TaskCompleted checklegdsen uguig gargaj ireh function if checked (line through)
-  const handleCheck = () => {
-    setIsChecked(!isChecked);
+
+  const handleOnChangeChecked = (event, index) => {
+    // console.log(event.target.checked, index);
+    const newTodos = todos.map((el, i) => {
+      if (i === index) {
+        el.isCompleted = event.target.checked;
+      }
+      return el;
+    });
+    setTodos(newTodos);
+  };
+  const completedCount = todos.filter((todo) => todo.isCompleted).length;
+
+  const handleClearCompleted = () => {
+    setTodos(todos.filter((todo) => !todo.isCompleted));
   };
 
+  // console.log(todos);
   return (
     <div className="m-0 p-0 box-border font-[Inter, Inter Fallback] ">
       {/* Container */}
@@ -81,9 +94,9 @@ const Home = () => {
               key={index}
               index={index}
               taskName={todo.title}
-              isCompleted={todo.isDone}
+              isCompleted={todo.isCompleted}
               handleDelete={handleDelete}
-              handleCheck={handleCheck}
+              handleOnChangeChecked={handleOnChangeChecked}
             ></TaskCompleted>
           ))}
 
@@ -91,9 +104,12 @@ const Home = () => {
           {todos.length !== 0 && (
             <div className="flex pt-4 mb-10   justify-between items-center border-t-[1px] border-t-[#e5e7eb]">
               <p className="text-[14px] text-gray-500 ">
-                # of {todos.length} tasks completed
+                {completedCount} of {todos.length} tasks completed
               </p>
-              <button className="border-0 text-[14px] cursor-pointer  text-[#ef4444] bg-transparent">
+              <button
+                onClick={handleClearCompleted}
+                className="border-0 text-[14px] cursor-pointer  text-[#ef4444] bg-transparent"
+              >
                 Clear completed
               </button>
             </div>
