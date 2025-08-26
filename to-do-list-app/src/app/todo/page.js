@@ -4,9 +4,14 @@ import { useState } from "react";
 
 import { Button, TaskCompleted, NoTask } from "@/components";
 
+import { v4 as uuidv4 } from "uuid";
+
 const Home = () => {
   const [todos, setTodos] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [filterStatus, setFilterStatus] = useState("all");
+
+  const handleFilterStatus = (status) => setFilterStatus(status);
 
   const handleOnChange = (event) => {
     setInputValue(event.target.value);
@@ -15,14 +20,16 @@ const Home = () => {
   const handleOnClick = (event) => {
     event.preventDefault();
     if (!inputValue.trim()) return;
-    setTodos([...todos, { title: inputValue, isCompleted: false }]);
+    setTodos([
+      ...todos,
+      { title: inputValue, isCompleted: false, id: uuidv4() },
+    ]);
     setInputValue("");
   };
 
   const handleDelete = (index) => {
     setTodos(todos.filter((_, i) => i !== index));
   };
-  // TaskCompleted checklegdsen uguig gargaj ireh function if checked (line through)
 
   const handleOnChangeChecked = (event, index) => {
     // console.log(event.target.checked, index);
@@ -40,6 +47,12 @@ const Home = () => {
     setTodos(todos.filter((todo) => !todo.isCompleted));
   };
 
+  const filteredTodos = todos.filter((todo) => {
+    if (filterStatus === "all") return true;
+    if (filterStatus === "active") return !todo.isCompleted;
+    return todo.isCompleted;
+  });
+
   // console.log(todos);
   return (
     <div className="m-0 p-0 box-border font-[Inter, Inter Fallback] ">
@@ -56,7 +69,7 @@ const Home = () => {
             To-Do list
           </h1>
           {/* Form= Input and Button */}
-          <form className="h-[40px] flex gap-[6px]">
+          <form className="h-[40px] flex gap-[6px]" onClick={handleOnClick}>
             <input
               value={inputValue}
               type="text"
@@ -67,7 +80,6 @@ const Home = () => {
             ></input>
             <button
               type="submit"
-              onClick={handleOnClick}
               className="w-[59px] border-0 cursor-pointer text-[14px] text-[#f9f9f9] rounded-[6px] px-[16px] bg-[#3c82f6]"
             >
               Add
@@ -75,23 +87,26 @@ const Home = () => {
           </form>
           {/* Filter Buttons */}
           <div className="h-[32px] flex gap-[6px] mt-[20px] mb-[20px]">
-            <Button color="#fff" background="#3c82f6" content="All"></Button>
-            <Button
-              color="#363636"
-              background="#e5e7eb"
-              content="Active"
-            ></Button>
-            <Button
-              color="#363636"
-              background="#e5e7eb"
-              content="Completed"
-            ></Button>
+            {["all", "active", "completed"].map((status) => (
+              <button
+                key={status}
+                onClick={() => handleFilterStatus(status)}
+                className={
+                  "border-0 cursor-pointer text-[12px] font-medium rounded-[6px] px-[12px] capitalize text-[#363636] bg-[#e5e7eb] " +
+                  `${
+                    filterStatus === status ? "!bg-[#3c82f6] !text-[#fff]" : ""
+                  }`
+                }
+              >
+                {status}
+              </button>
+            ))}
           </div>
           {/* No tasks to display */}
-          {todos.length === 0 && <NoTask />}
-          {todos.map((todo, index) => (
+          {filteredTodos.length === 0 && <NoTask />}
+          {filteredTodos.map((todo, index) => (
             <TaskCompleted
-              key={index}
+              key={todo.id}
               index={index}
               taskName={todo.title}
               isCompleted={todo.isCompleted}
@@ -101,7 +116,7 @@ const Home = () => {
           ))}
 
           {/* Clear completed */}
-          {todos.length !== 0 && (
+          {filteredTodos.length !== 0 && (
             <div className="flex pt-4 mb-10   justify-between items-center border-t-[1px] border-t-[#e5e7eb]">
               <p className="text-[14px] text-gray-500 ">
                 {completedCount} of {todos.length} tasks completed
