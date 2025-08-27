@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { Button, TaskCompleted, NoTask } from "@/components";
+import { TaskCompleted, NoTask, Title } from "@/components";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -27,14 +27,14 @@ const Home = () => {
     setInputValue("");
   };
 
-  const handleDelete = (index) => {
-    setTodos(todos.filter((_, i) => i !== index));
+  const handleDelete = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  const handleOnChangeChecked = (event, index) => {
+  const handleOnChangeChecked = (event, id) => {
     // console.log(event.target.checked, index);
     const newTodos = todos.map((el, i) => {
-      if (i === index) {
+      if (el.id === id) {
         el.isCompleted = event.target.checked;
       }
       return el;
@@ -55,7 +55,7 @@ const Home = () => {
 
   // console.log(todos);
   return (
-    <div className="m-0 p-0 box-border font-[Inter, Inter Fallback] ">
+    <div className="m-0 p-0 box-border font-inter">
       {/* Container */}
 
       <div className="p-top pt-[60px] bg-[#f3f5f7] min-h-[100vh]">
@@ -65,9 +65,7 @@ const Home = () => {
 "
         >
           {/* Title */}
-          <h1 className="text-center text-[#000] text-[20px] font-semibold leading-[28px] mb-[20px] tracking-[-2.5%]">
-            To-Do list
-          </h1>
+          <Title></Title>
           {/* Form= Input and Button */}
           <form className="h-[40px] flex gap-[6px]" onClick={handleOnClick}>
             <input
@@ -76,7 +74,7 @@ const Home = () => {
               onChange={handleOnChange}
               maxLength="100"
               placeholder="Add a new task..."
-              className="grow shrink text-[14px] rounded-[6px] px-[16px] border-[1px] border-[#e4e4e7] text-[#71717A]"
+              className="w-72 h-10 px-4 py-2 rounded-md outline-1 outline-offset-[-1px] outline-border-border-border inline-flex flex-col justify-center items-start"
             ></input>
             <button
               type="submit"
@@ -92,7 +90,7 @@ const Home = () => {
                 key={status}
                 onClick={() => handleFilterStatus(status)}
                 className={
-                  "border-0 cursor-pointer text-[12px] font-medium rounded-[6px] px-[12px] capitalize text-[#363636] bg-[#e5e7eb] " +
+                  "border-0 cursor-pointer text-neutral-700 text-xs font-normal rounded-[6px] px-[12px] capitalize bg-[#e5e7eb] " +
                   `${
                     filterStatus === status ? "!bg-[#3c82f6] !text-[#fff]" : ""
                   }`
@@ -107,6 +105,7 @@ const Home = () => {
           {filteredTodos.map((todo, index) => (
             <TaskCompleted
               key={todo.id}
+              id={todo.id}
               index={index}
               taskName={todo.title}
               isCompleted={todo.isCompleted}
@@ -121,12 +120,14 @@ const Home = () => {
               <p className="text-[14px] text-gray-500 ">
                 {completedCount} of {todos.length} tasks completed
               </p>
-              <button
-                onClick={handleClearCompleted}
-                className="border-0 text-[14px] cursor-pointer  text-[#ef4444] bg-transparent"
-              >
-                Clear completed
-              </button>
+              {completedCount > 0 && (
+                <button
+                  onClick={handleClearCompleted}
+                  className="border-0 text-[14px] cursor-pointer  text-[#ef4444] bg-transparent"
+                >
+                  Clear completed
+                </button>
+              )}
             </div>
           )}
 
