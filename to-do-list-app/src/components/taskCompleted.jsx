@@ -34,7 +34,7 @@ export const TaskCompleted = ({
         {isCompleted ? (
           <button
             onClick={() => handleDelete(id)}
-            className="px-3 min-h-[30px] bg-red-50 rounded-md text-red-500"
+            className="px-3 min-h-[30px] bg-red-50 rounded-md text-red-500 active:bg-red-200 hover:bg-red-100"
           >
             Delete
           </button>

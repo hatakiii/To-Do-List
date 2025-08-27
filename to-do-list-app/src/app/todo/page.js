@@ -21,10 +21,11 @@ const Home = () => {
     event.preventDefault();
     if (!inputValue.trim()) return;
     setTodos([
-      ...todos,
       { title: inputValue, isCompleted: false, id: uuidv4() },
+      ...todos,
     ]);
     setInputValue("");
+    setFilterStatus("all");
   };
 
   const handleDelete = (id) => {
@@ -78,7 +79,7 @@ const Home = () => {
             ></input>
             <button
               type="submit"
-              className="w-[59px] border-0 cursor-pointer text-[14px] text-[#f9f9f9] rounded-[6px] px-[16px] bg-[#3c82f6]"
+              className="w-[59px] border-0 cursor-pointer text-[14px] text-[#f9f9f9] rounded-[6px] px-[16px] bg-[#3c82f6]  active:bg-blue-600 hover:bg-blue-700"
             >
               Add
             </button>
@@ -92,7 +93,9 @@ const Home = () => {
                 className={
                   "border-0 cursor-pointer text-neutral-700 text-xs font-normal rounded-[6px] px-[12px] capitalize bg-[#e5e7eb] " +
                   `${
-                    filterStatus === status ? "!bg-[#3c82f6] !text-[#fff]" : ""
+                    filterStatus === status
+                      ? "!bg-[#3c82f6] !text-[#fff] hover:!bg-blue-700"
+                      : ""
                   }`
                 }
               >
@@ -102,11 +105,10 @@ const Home = () => {
           </div>
           {/* No tasks to display */}
           {filteredTodos.length === 0 && <NoTask />}
-          {filteredTodos.map((todo, index) => (
+          {filteredTodos.map((todo) => (
             <TaskCompleted
               key={todo.id}
               id={todo.id}
-              index={index}
               taskName={todo.title}
               isCompleted={todo.isCompleted}
               handleDelete={handleDelete}
@@ -123,7 +125,7 @@ const Home = () => {
               {completedCount > 0 && (
                 <button
                   onClick={handleClearCompleted}
-                  className="border-0 text-[14px] cursor-pointer  text-[#ef4444] bg-transparent"
+                  className="border-0 text-[14px] cursor-pointer  text-[#ef4444] bg-transparent hover:bg-red-100 active:bg-red-200"
                 >
                   Clear completed
                 </button>
