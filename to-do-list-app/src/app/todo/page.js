@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { TaskCompleted, NoTask, Title, Footer } from "@/components";
+import { TaskCompleted, NoTask, Title } from "@/components";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -33,7 +33,7 @@ const Home = () => {
   };
 
   const handleOnChangeChecked = (event, id) => {
-    // console.log(event.target.checked, id);
+    // console.log(event.target.checked, index);
     const newTodos = todos.map((el, i) => {
       if (el.id === id) {
         el.isCompleted = event.target.checked;
@@ -54,7 +54,6 @@ const Home = () => {
     return todo.isCompleted;
   });
 
-  // console.log(todos);
   return (
     <div className="m-0 p-0 box-border font-inter">
       {/* Container */}
@@ -125,7 +124,7 @@ const Home = () => {
               {completedCount > 0 && (
                 <button
                   onClick={handleClearCompleted}
-                  className="border-0 text-[14px] cursor-pointer  text-[#ef4444] bg-transparent hover:bg-red-100 active:bg-red-200 rounded-md p-1"
+                  className="border-0 text-[14px] cursor-pointer  text-[#ef4444] bg-transparent hover:bg-red-100 active:bg-red-200"
                 >
                   Clear completed
                 </button>
@@ -134,7 +133,10 @@ const Home = () => {
           )}
 
           {/* Footer */}
-          <Footer />
+          <div className="text-[12px] text-[#6b7280] text-center leading-[14.5px]">
+            <span>Powered by</span>
+            <a className="text-[#3b73ed] ml-[4px]">Pinecone academy</a>
+          </div>
         </div>
       </div>
     </div>

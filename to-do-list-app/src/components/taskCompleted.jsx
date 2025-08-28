@@ -11,8 +11,7 @@ export const TaskCompleted = ({
       <div
         data-state="Default"
         className={
-          "w-full h-full p-4 bg-gray-50 rounded-md flex justify-between items-center mb-5 group/item " +
-          `hover:${(<button></button>)}`
+          "w-full h-full p-4 bg-gray-50 rounded-md flex justify-between items-center mb-5 group/item hover:bg-gray-150"
         }
       >
         {/* Left side (checkbox + text) */}

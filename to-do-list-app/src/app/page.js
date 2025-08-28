@@ -29,6 +29,11 @@ const Home = () => {
   };
 
   const handleDelete = (id) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this task?"
+    );
+    if (!confirmed) return;
+
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
@@ -45,6 +50,11 @@ const Home = () => {
   const completedCount = todos.filter((todo) => todo.isCompleted).length;
 
   const handleClearCompleted = () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to clear all completed tasks?"
+    );
+    if (!confirmed) return;
+
     setTodos(todos.filter((todo) => !todo.isCompleted));
   };
 
