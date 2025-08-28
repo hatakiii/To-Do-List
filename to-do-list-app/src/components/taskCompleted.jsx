@@ -10,7 +10,10 @@ export const TaskCompleted = ({
     <div className="flex flex-col gap-2">
       <div
         data-state="Default"
-        className="w-full h-full p-4 bg-gray-50 rounded-md flex justify-between items-center mb-5"
+        className={
+          "w-full h-full p-4 bg-gray-50 rounded-md flex justify-between items-center mb-5 group/item " +
+          `hover:${(<button></button>)}`
+        }
       >
         {/* Left side (checkbox + text) */}
         <div className="flex items-center gap-2.5">
@@ -39,7 +42,12 @@ export const TaskCompleted = ({
             Delete
           </button>
         ) : (
-          <div className="px-3 min-h-[30px] invisible">Delete</div>
+          <button
+            onClick={() => handleDelete(id)}
+            className="px-3 min-h-[30px] invisible group-hover/item:visible bg-red-50 rounded-md text-red-500 active:bg-red-200 hover:bg-red-100"
+          >
+            Delete
+          </button>
         )}
       </div>
     </div>
