@@ -78,7 +78,7 @@ const Home = () => {
             ></input>
             <button
               type="submit"
-              className="w-[59px] border-0 cursor-pointer text-[14px] text-[#f9f9f9] rounded-[6px] px-[16px] bg-[#3c82f6]  active:bg-blue-600 hover:bg-blue-700"
+              className="w-[59px] border-0 cursor-pointer text-[14px] text-[#f9f9f9] rounded-[6px] px-[16px] bg-red-600   "
             >
               Add
             </button>
@@ -92,9 +92,7 @@ const Home = () => {
                 className={
                   "border-0 cursor-pointer text-neutral-700 text-xs font-normal rounded-[6px] px-[12px] capitalize bg-[#e5e7eb] " +
                   `${
-                    filterStatus === status
-                      ? "!bg-[#3c82f6] !text-[#fff] hover:!bg-blue-700"
-                      : ""
+                    filterStatus === status ? "!bg-red-600 !text-[#fff] " : ""
                   }`
                 }
               >

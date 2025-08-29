@@ -19,7 +19,11 @@ const Home = () => {
 
   const handleOnClick = (event) => {
     event.preventDefault();
-    if (!inputValue.trim()) return;
+
+    if (!inputValue.trim()) {
+      alert("Please enter a task!");
+      return;
+    }
     setTodos([
       { title: inputValue, isCompleted: false, id: uuidv4() },
       ...todos,
@@ -78,14 +82,14 @@ const Home = () => {
           {/* Title */}
           <Title></Title>
           {/* Form= Input and Button */}
-          <form className="h-[40px] flex gap-[6px]" onClick={handleOnClick}>
+          <form className="h-[40px] flex gap-[6px]" onSubmit={handleOnClick}>
             <input
               value={inputValue}
               type="text"
               onChange={handleOnChange}
               maxLength="100"
               placeholder="Add a new task..."
-              className="w-72 h-10 px-4 py-2 rounded-md outline-1 outline-offset-[-1px] outline-border-border-border inline-flex flex-col justify-center items-start"
+              className="w-72 h-10 px-4 py-2 rounded-md border border-gray-300 focus:border-blue-600 focus:outline-none hover:border-blue-400"
             ></input>
             <button
               type="submit"
