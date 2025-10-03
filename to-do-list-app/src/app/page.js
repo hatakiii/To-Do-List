@@ -89,7 +89,7 @@ const Home = () => {
               onChange={handleOnChange}
               maxLength="100"
               placeholder="Add a new task..."
-              className="w-72 h-10 px-4 py-2 rounded-md border border-gray-300 focus:border-blue-600 focus:outline-none hover:border-blue-400"
+              className="w-72 h-10 px-4 py-2 rounded-md border border-gray-300 focus:border-blue-600 focus:outline-none hover:border-blue-400 text-black"
             ></input>
             <button
               type="submit"
