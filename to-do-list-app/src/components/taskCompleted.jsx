@@ -25,7 +25,7 @@ export const TaskCompleted = ({
           <p
             className={
               "max-w-[208.5px] overflow-hidden break-words text-[14px] text-black" +
-              `${isCompleted ? "line-through" : ""}`
+              `${isCompleted ? " line-through" : ""}`
             }
           >
             {taskName}

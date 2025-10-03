@@ -33,9 +33,7 @@ const Home = () => {
   };
 
   const handleDelete = (id) => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this task?"
-    );
+    const confirmed = window.confirm("Are you sure want to delete this task?");
     if (!confirmed) return;
 
     setTodos(todos.filter((todo) => todo.id !== id));
@@ -55,7 +53,7 @@ const Home = () => {
 
   const handleClearCompleted = () => {
     const confirmed = window.confirm(
-      "Are you sure you want to clear all completed tasks?"
+      "Are you sure want to clear all completed tasks?"
     );
     if (!confirmed) return;
 
